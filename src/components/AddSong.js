@@ -76,7 +76,7 @@ function AddSong(){
                 type="url"
                 InputProps={{
                     startAdornment: (
-                        <InputAdornment>
+                        <InputAdornment position="start">
                             <Link />
                         </InputAdornment>
                     )
