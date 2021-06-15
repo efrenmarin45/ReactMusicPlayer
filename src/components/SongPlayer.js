@@ -1,14 +1,44 @@
-import { Card, CardContent, CardMedia, Slider, Typography, IconButton } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Slider, Typography, IconButton, makeStyles } from '@material-ui/core';
 import { PlayArrow, SkipNext, SkipPrevious } from '@material-ui/icons';
 import React from 'react';
 import QueuedSongList from './QueuedSongList';
 
+const useStyles = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    details: {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '0px 15px',
+    },
+    content: {
+        flex: '1 0 auto',
+    },
+    thumbnail: {
+        width: 150,
+    },
+    controls: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+    },
+    playIcon: {
+        height: 38,
+        width: 38,
+    }
+}))
+
+
 function SongPlayer(){
+    const classes = useStyles();
     return(
         <>
-            <Card variant="outlined">
-                <div>
-                    <CardContent>
+            <Card variant="outlined" className={classes.container}>
+                <div className={classes.details}>
+                    <CardContent className={classes.content}>
                         <Typography variant="h5" component="h3">
                             Title
                         </Typography>
@@ -16,12 +46,12 @@ function SongPlayer(){
                             Artist
                         </Typography>
                     </CardContent>
-                    <div>
+                    <div className={classes.control}>
                         <IconButton>
                             <SkipPrevious />
                         </IconButton>
                         <IconButton>
-                            <PlayArrow />
+                            <PlayArrow className={classes.playIcon} />
                         </IconButton>
                         <IconButton>
                             <SkipNext />
@@ -37,7 +67,9 @@ function SongPlayer(){
                         step={0.01}
                     />
                 </div>
-                <CardMedia image= "https://i.ytimg.com/vi/5qap5aO4i9A/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjvGK1gm6j9dzv7zj0BmuZ9fR2hA" />
+                <CardMedia 
+                    className={classes.thumbnail}
+                    image= "https://i.ytimg.com/vi/5qap5aO4i9A/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjvGK1gm6j9dzv7zj0BmuZ9fR2hA" />
             </Card>
             <QueuedSongList />
         </>
