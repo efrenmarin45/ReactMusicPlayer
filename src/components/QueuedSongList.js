@@ -1,15 +1,17 @@
-import { Typography, Avatar, IconButton, makeStyles } from '@material-ui/core';
+import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import React from 'react';
 
 function QueuedSongList(){
+    const greaterThanMD = useMediaQuery(theme => theme.breakpoints.up('md'));
+
     const song = {
         title: "Aqua Level",
         artist: "Donkey Kong",
         thumbnail: "https://i.ytimg.com/vi/5qap5aO4i9A/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjvGK1gm6j9dzv7zj0BmuZ9fR2hA"
     }
 
-    return(
+    return greaterThanMD && (
         <div style={{margin: '10px 0'}}>
             <Typography color="textSecondary" variant="button">
                 QUEUE (5)
