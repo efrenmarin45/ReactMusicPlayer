@@ -1,15 +1,17 @@
+import { useQuery } from '@apollo/react-hooks';
 import { CardActions, CardContent, CardMedia, CircularProgress, IconButton, Typography, Card, makeStyles } from '@material-ui/core';
 import { PlayArrow, Save } from '@material-ui/icons';
 import React from 'react';
+import { GET_SONGS } from '../graphql/queries';
 
 function SongList(){
-    let loading = false;
+    const { data, loading, error } = useQuery(GET_SONGS);
 
-    const song = {
-        title: "Aqua Level",
-        artist: "Donkey Kong",
-        thumbnail: "https://i.ytimg.com/vi/5qap5aO4i9A/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjvGK1gm6j9dzv7zj0BmuZ9fR2hA"
-    }
+    // const song = {
+    //     title: "Aqua Level",
+    //     artist: "Donkey Kong",
+    //     thumbnail: "https://i.ytimg.com/vi/5qap5aO4i9A/hq720_live.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjvGK1gm6j9dzv7zj0BmuZ9fR2hA"
+    // }
 
     if (loading){
         return(
@@ -22,12 +24,18 @@ function SongList(){
             >
                 <CircularProgress />
             </div>
-        )
+        );
     }
+    
+    if(error)
+        return( 
+            <h1>Error Fetching Songs</h1>
+        )
+
     return (
         <div>
-            {Array.from({ length: 10}, () => song).map((song, i) => (
-                <Song key={i} song={song} />
+            {data.songs.map(song => (
+                <Song key={song.id} song={song} />
             ))}
         </div>
     );
